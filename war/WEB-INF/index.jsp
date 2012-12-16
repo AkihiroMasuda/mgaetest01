@@ -3,20 +3,22 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <title>gogogo</title>
+    <title>Twitter API test</title>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 	<script type="text/javascript">
 	<!--
 		var data = ${jsonres};
+		var url = "${geturl}";
 	
 		$(function(){
 			// HTML���[�h��Ɏ��s����������R�[�h
+			$("#url").text("url : " + url);
 			$("#maxid").text("maxid : " + data.max_id);
 			$("#query").text("query : " + data.query);
 			$("#nums").text("rpp  : " + data.results.length + "  (=The number of tweets to return per page)");
 	//		$("#json").text(restxt);
 	
-			// result �̕\��
+			// results をテーブルに出力
 			var html = '<table border="3">';
 			html = html + '<tr><th>id</th><th>profile_image_url</th><th>text</th><th>created_at</th><th>source</th></tr>';
 			for (var i=0; i<data.results.length; ++i){
@@ -49,7 +51,8 @@
   </head>
 
   <body>
-    <h1>My hoge!</h1>
+    <h1>Twitter API test.</h1>
+    <p id="url"></p>
     <p id="maxid"></p>
     <p id="query"></p>
     <p id="nums"></p>
