@@ -16,15 +16,29 @@ import javax.servlet.http.*;
 public class Com_appspot_mgaetest01Servlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
+		String query = req.getParameter("q");
+		String rpp = req.getParameter("rpp");
+		
 		resp.setContentType("text/plain;");
-//		resp.setCharacterEncoding("UTF-8");
-
+		
 //		final String strUrl = "http://homepage2.nifty.com/akidn8/android/download.html";
 //		final String strUrl = "https://api.twitter.com/1.1/search/tweets.json?q=horiday";		
 //		final String strUrl = "https://api.twitter.com/1.1/search/tweets.json?q=%23freebandnames&since_id=24012619984051000&max_id=250126199840518145&result_type=mixed&count=4";	
-		final String strUrl = "http://search.twitter.com/search.json?q=blue%20angels&rpp=5&include_entities=true&result_type=mixed";	
+
+		String strUrl = "http://search.twitter.com/search.json?";
+		if (query!=null){
+			strUrl += "q=" + query;
+		}else{
+//			strUrl = "http://search.twitter.com/search.json?q=blue%20angels&rpp=5&include_entities=true&result_type=mixed";	
+			strUrl += "q=blue%20angels";
+		}
+		if (rpp!=null){
+			strUrl += "&rpp=" + rpp;
+		}else{
+			strUrl += "&rpp=5";
+		}
+		strUrl +=  "&include_entities=true&result_type=mixed";
 		String result = exeGET(strUrl);
-//		showString(result, req, resp);
 		
 		req.setAttribute("jsonres", result);
 		showHtml("/WEB-INF/index.jsp", req, resp);

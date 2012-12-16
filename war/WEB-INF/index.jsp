@@ -8,14 +8,12 @@
 	<script type="text/javascript">
 	<!--
 		var data = ${jsonres};
-//			alert('${jsonres}');
-//		var restxt = "${jsonres}";
 	
 		$(function(){
 			// HTML���[�h��Ɏ��s����������R�[�h
 			$("#maxid").text("maxid : " + data.max_id);
 			$("#query").text("query : " + data.query);
-			$("#nums").text("nums : " + data.results.length);
+			$("#nums").text("rpp  : " + data.results.length + "  (=The number of tweets to return per page)");
 	//		$("#json").text(restxt);
 	
 			// result �̕\��
