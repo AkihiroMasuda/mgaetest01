@@ -7,30 +7,45 @@
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 	<script type="text/javascript">
 	<!--
-		var data = ${name};
+		var data = ${jsonres};
+//			alert('${jsonres}');
+//		var restxt = "${jsonres}";
 	
 		$(function(){
 			// HTML���[�h��Ɏ��s����������R�[�h
-//			alert("hoge");
-//			alert("hoge");
-//			data = ${name};
-			
-//			alert(data.max_id);
-			$("#maxid").text(data.max_id);
-			
+			$("#maxid").text("maxid : " + data.max_id);
+			$("#query").text("query : " + data.query);
+			$("#nums").text("nums : " + data.results.length);
+	//		$("#json").text(restxt);
 	
 			// result �̕\��
-			var i=0;
-//			alert(data.results.length);
-			for (i; i<data.results.length; ++i){
-				var html = '<table border="3">';
-				html = html + '<tr><th>０</th><th>１</th><th>２</th><th>３</th></tr>';
-				
+			var html = '<table border="3">';
+			html = html + '<tr><th>id</th><th>profile_image_url</th><th>text</th><th>created_at</th><th>source</th></tr>';
+			for (var i=0; i<data.results.length; ++i){
+				html = html + '<tr>';
+				var r = data.results[i];
+				html = html + '<td>' + r.id + '</td>';
+				html = html + '<td><img src="' +r.profile_image_url+ '"/>' + '</td>';
+				html = html + '<td>' + r.text + '</td>';
+				html = html + '<td>' + r.created_at + '</td>';
+				html = html + '<td>' + changeTokushu2HTML(r.source) + '</td>';
+				html = html + '</tr>';
 			}
-//			alert(html);
-//			alert("hoge4");
 			$("#res").html(html);
 		}); 
+
+		// 特殊文字を含む文字列をHTML形式に戻す。	
+		function changeTokushu2HTML(str){
+			var targetArray=['<','>','\"'];
+			var changeArray=['&lt;','&gt;','&quot;'];
+			
+			for( i = 0; i < 3; i++){
+				reg = new RegExp(changeArray[i], "g");
+				str = str.replace(reg, targetArray[i]);
+			}
+			return str;
+		}
+		
 	-->
 	</script>
   </head>
@@ -38,6 +53,9 @@
   <body>
     <h1>My hoge!</h1>
     <p id="maxid"></p>
+    <p id="query"></p>
+    <p id="nums"></p>
     <div id="res"></div>
+    <div id="json"></div>
   </body>
 </html>

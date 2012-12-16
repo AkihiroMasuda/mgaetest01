@@ -24,10 +24,13 @@ public class Com_appspot_mgaetest01Servlet extends HttpServlet {
 //		final String strUrl = "https://api.twitter.com/1.1/search/tweets.json?q=%23freebandnames&since_id=24012619984051000&max_id=250126199840518145&result_type=mixed&count=4";	
 		final String strUrl = "http://search.twitter.com/search.json?q=blue%20angels&rpp=5&include_entities=true&result_type=mixed";	
 		String result = exeGET(strUrl);
-		showString(result, req, resp);
+//		showString(result, req, resp);
+		
+		req.setAttribute("jsonres", result);
+		showHtml("/WEB-INF/index.jsp", req, resp);
 	}
 
-	// w’è‚µ‚½ƒvƒŒ[ƒ“ƒeƒLƒXƒg‚ğ•\¦‚·‚é
+	// ï¿½wï¿½è‚µï¿½ï¿½ï¿½vï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½eï¿½Lï¿½Xï¿½gï¿½ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	private void showString(String body, HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 //		resp.getOutputStream().println("gegege");
@@ -36,10 +39,10 @@ public class Com_appspot_mgaetest01Servlet extends HttpServlet {
 		out.write(body);
 	}
 	
-	// w’è‚µ‚½HTMLƒtƒ@ƒCƒ‹‚ğo—Í‚·‚éB
+	// ï¿½wï¿½è‚µï¿½ï¿½HTMLï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½oï¿½Í‚ï¿½ï¿½ï¿½B
 	private void showHtml(String path, HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
-//		RequestDispatcher rd = getServletC@ontext().getRequestDispatcher("/myindex.html");
+//		RequestDispatcher rd = getServletCï¿½@ontext().getRequestDispatcher("/myindex.html");
 		RequestDispatcher rd = getServletContext().getRequestDispatcher(path);
 		try {
 			rd.forward(req, resp);
@@ -48,23 +51,23 @@ public class Com_appspot_mgaetest01Servlet extends HttpServlet {
 		}
 	}
 	
-	// strUrl‚Åw’è‚µ‚½ƒzƒXƒg‚ÉGETƒƒ\ƒbƒh‚ÅƒAƒNƒZƒXBŒ‹‰Ê‚ğ•Ô‚·B
+	// strUrlï¿½Åwï¿½è‚µï¿½ï¿½ï¿½zï¿½Xï¿½gï¿½ï¿½GETï¿½ï¿½ï¿½\ï¿½bï¿½hï¿½ÅƒAï¿½Nï¿½Zï¿½Xï¿½Bï¿½ï¿½ï¿½Ê‚ï¿½Ô‚ï¿½ï¿½B
 	private String exeGET(String strUrl)
 			throws IOException {
 		URL urlObj;
 		String ret = new String("");
 		try {
 			urlObj = new URL(strUrl);
-			// URLÚ‘±
+			// URLï¿½Ú‘ï¿½
 			HttpURLConnection urlCon = (HttpURLConnection)urlObj.openConnection();
 			urlCon.setRequestMethod("GET");
 			BufferedReader urlIn = new BufferedReader(new InputStreamReader(urlCon.getInputStream()));
-			// Œ‹‰Ê‚ğString‚ÉƒZƒbƒg
+			// ï¿½ï¿½ï¿½Ê‚ï¿½Stringï¿½ÉƒZï¿½bï¿½g
 			String tmp = new String();
 			while((tmp = urlIn.readLine()) != null){
 				ret = ret + tmp;
 			}
-			// URLØ’f
+			// URLï¿½Ø’f
 			urlIn.close();
 			urlCon.disconnect();
 		} catch (MalformedURLException e) {
