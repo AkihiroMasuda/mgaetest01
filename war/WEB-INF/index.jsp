@@ -11,12 +11,13 @@
 		var url = "${geturl}";
 	
 		$(function(){
-			// HTML���[�h��Ɏ��s����������R�[�h
+			// 結果をHTML要素に出力
 			$("#url").text("url : " + url);
 			$("#maxid").text("maxid : " + data.max_id);
 			$("#query").text("query : " + data.query);
 			$("#nums").text("rpp  : " + data.results.length + "  (=The number of tweets to return per page)");
-	//		$("#json").text(restxt);
+//			$("#json").text(restxt);
+			$("#json").text(JSON.stringify(data));
 	
 			// results をテーブルに出力
 			var html = '<table border="3">';
@@ -57,6 +58,11 @@
     <p id="query"></p>
     <p id="nums"></p>
     <div id="res"></div>
+
+    <br/>
+    <hr/>
+    <p><b>String of the result.</b></p>
     <div id="json"></div>
+
   </body>
 </html>
